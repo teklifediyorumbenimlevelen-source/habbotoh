@@ -5,9 +5,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --primary: #dc2626;
-  --primary-dark: #b91c1c;
-  --primary-light: #f87171;
+  --primary: #0ea5e9;
+  --primary-dark: #0284c7;
+  --primary-light: #38bdf8;
+  --accent: #eab308;
+  --accent-dark: #ca8a04;
+  --secondary: #64748b;
 }
 
 * {

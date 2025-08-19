@@ -170,7 +170,7 @@ export function WelcomeScreen() {
             className="mb-8"
           >
             <h1 className="text-6xl md:text-8xl font-black mb-6">
-              <span className="bg-gradient-to-r from-orange-400 via-red-400 to-red-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-400 via-accent-400 to-primary-600 bg-clip-text text-transparent">
                 TÖH
               </span>
             </h1>
@@ -178,9 +178,9 @@ export function WelcomeScreen() {
               Türkiye Özel Harekat
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Habbo Türkiye'nin en prestijli ve güvenilir şirketi. 
-              Profesyonel ekibimiz ve modern yönetim sistemimizle 
-              mükemmelliği hedefliyoruz.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+              Ut enim ad minim veniam, quis nostrud exercitation.
             </p>
           </motion.div>
 
@@ -197,7 +197,7 @@ export function WelcomeScreen() {
               }}
               size="lg"
               icon={UserPlus}
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-lg px-8 py-4"
+              className="bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-lg px-8 py-4"
             >
               Hemen Başla
             </Button>
