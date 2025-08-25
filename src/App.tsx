@@ -1,45 +1,43 @@
-import React, { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { WelcomeScreen } from './components/welcome/WelcomeScreen';
-import { Dashboard } from './components/dashboard/Dashboard';
-import { ThemeToggle } from './components/layout/ThemeToggle';
-import { useAppStore } from './store/useAppStore';
-import { authAPI } from './services/api';
+import React, { useState } from 'react';
+import LoginPage from './components/auth/LoginPage';
+import Dashboard from './components/dashboard/Dashboard';
+import AdminPanel from './components/admin/AdminPanel';
+
+export type User = {
+  id: string;
+  username: string;
+  role: 'user' | 'admin';
+};
 
 function App() {
-  const { theme, isAuthenticated, setUser, setAuthenticated } = useAppStore();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentView, setCurrentView] = useState<'dashboard' | 'admin'>('dashboard');
 
-  useEffect(() => {
-    // Apply theme to document
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
+  const handleLogin = (username: string, role: 'user' | 'admin') => {
+    setCurrentUser({
+      id: Math.random().toString(36).substr(2, 9),
+      username,
+      role
+    });
+    setCurrentView(role === 'admin' ? 'admin' : 'dashboard');
+  };
 
-  useEffect(() => {
-    // Check for existing session
-    const currentUser = authAPI.getCurrentUser();
-    if (currentUser) {
-      setUser(currentUser);
-      setAuthenticated(true);
-    }
-  }, [setUser, setAuthenticated]);
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setCurrentView('dashboard');
+  };
+
+  if (!currentUser) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
 
   return (
-    <div className="min-h-screen transition-colors duration-300">
-      {isAuthenticated ? <Dashboard /> : <WelcomeScreen />}
-      
-      <ThemeToggle />
-      
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: theme === 'dark' ? '#374151' : '#fff',
-            color: theme === 'dark' ? '#fff' : '#374151',
-            border: `1px solid ${theme === 'dark' ? '#4B5563' : '#E5E7EB'}`,
-          },
-        }}
-      />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      {currentView === 'admin' ? (
+        <AdminPanel user={currentUser} onLogout={handleLogout} onViewChange={setCurrentView} />
+      ) : (
+        <Dashboard user={currentUser} onLogout={handleLogout} onViewChange={setCurrentView} />
+      )}
     </div>
   );
 }
