@@ -3,6 +3,8 @@ import { User } from '../../App';
 import Navbar from './Navbar';
 import DashboardHome from './DashboardHome';
 import TransferMoney from './TransferMoney';
+import TransactionHistory from './TransactionHistory';
+import Profile from './Profile';
 
 interface DashboardProps {
   user: User;
@@ -11,10 +13,10 @@ interface DashboardProps {
 }
 
 function Dashboard({ user, onLogout, onViewChange }: DashboardProps) {
-  const [currentView, setCurrentView] = useState<'home' | 'transfer'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'transfer' | 'history' | 'profile'>('home');
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Navbar 
         user={user} 
         currentView={currentView}
@@ -22,12 +24,11 @@ function Dashboard({ user, onLogout, onViewChange }: DashboardProps) {
         onLogout={onLogout}
         onAdminPanel={() => onViewChange('admin')}
       />
-      <div className="pt-16">
-        {currentView === 'home' ? (
-          <DashboardHome user={user} />
-        ) : (
-          <TransferMoney user={user} />
-        )}
+      <div className="pt-20">
+        {currentView === 'home' && <DashboardHome user={user} />}
+        {currentView === 'transfer' && <TransferMoney user={user} />}
+        {currentView === 'history' && <TransactionHistory user={user} />}
+        {currentView === 'profile' && <Profile user={user} />}
       </div>
     </div>
   );
